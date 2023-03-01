@@ -4,6 +4,7 @@ const fs = require('fs');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
+const { generateMainPage } = require('./src/scripts');
 
 const TeamArray = [];
 
@@ -21,6 +22,7 @@ function start() {
                 addEmployee();
             } else {
                 if (TeamArray.length > 0) {
+                    console.log("\nperfect. Your team members is updated!\nLet\'s proceed to build your awesome team page...\n==============\n\n");
                     buildTeam()
                 } else {
                     return console.log("No Team to Build.")
@@ -30,27 +32,27 @@ function start() {
         )
     }
     function addEmployee() {
-        console.log("addEmployee")
+        console.log("Adding employee details...\n")
         inquirer
             .prompt([
                 {
                     type: 'input',
-                    message: 'What is your name?',
+                    message: 'What is the employee name?',
                     name: 'name',
                 },
                 {
                     type: 'input',
-                    message: 'What is your email address?',
+                    message: 'What is the employee email address?',
                     name: 'email',
                 },
                 {
                     type: 'input',
-                    message: 'What is your employee id:',
+                    message: 'What is the employee employee id:',
                     name: 'id',
                 },
                 {
                     type: 'list',
-                    message: "What is your job role?",
+                    message: "What is the employee job role?",
                     choices: ["Manager", "Engineer", "Intern"],
                     name: "role"
                 }
@@ -77,43 +79,72 @@ function start() {
     }
 
     function addManager(employeeData) {
-        console.log("Adding New Manager...")
-        // Todo: Add Inquierr questions to ask for Office Number
+        console.log("Adding New Manager...\n")
+        
+        inquirer
+            .prompt({
+                type: 'input',
+                message: 'What is the manager\'s Office Number?',
+                name: 'officeNumber',
+            })
+            .then((response) => {
+                employeeData.officeNumber = response.officeNumber;
+                const manager = new Manager(employeeData.name, employeeData.id, employeeData.email, employeeData.officeNumber)
+                TeamArray.push(manager);
+                // Confirmation message
+                console.log(`\nManager ${employeeData.name} was added to the team!\n==============\n\n`)
 
-        // Todo: Take Answer and data passed from addEmployee function and create a new Manager variable
-
-        // Todo: Add Manager variable to Team Array
-
-        // Return to Start
+                start();
+            })
     }
 
     function addEngineer(employeeData) {
-        console.log("Adding New Engineer...")
-        // Todo: Add Inquierr questions to ask for Github Username
+        console.log("Adding New Engineer...\n")
 
-        // Todo: Take Answer and data passed from addEmployee function and create a new Engineer variable
+        inquirer
+            .prompt({
+                type: 'input',
+                message: 'What is the Engineer\'s Github username?',
+                name: 'Github',
+            })
+            .then((response) => {
+                employeeData.Github = response.Github;
+                const engineer = new Engineer(employeeData.name, employeeData.id, employeeData.email, employeeData.Github)
+                TeamArray.push(engineer);
+                // Confirmation message
+                console.log(`\nEngineer ${employeeData.name} was added to the team!\n==============\n\n`)
 
-        // Todo: Add Engineer variable to Team Array
-
-        // Return to Start
+                start();
+            })
     }
 
     function addIntern(employeeData) {
-        console.log("Adding New Intern...")
-        // Todo: Add Inquierr questions to ask for School Name
+        console.log("Adding New Intern...\n")
 
-        // Todo: Take Answer and data passed from addEmployee function and create a new School Name variable
+        inquirer
+            .prompt({
+                type: 'input',
+                message: 'What is the intern\'s School Name?',
+                name: 'schoolName',
+            })
+            .then((response) => {
+                employeeData.schoolName = response.schoolName;
+                const intern = new Intern(employeeData.name, employeeData.id, employeeData.email, employeeData.schoolName)
+                TeamArray.push(intern);
+                // Confirmation message
+                console.log(`\nIntern ${employeeData.name} was added to the team!\n==============\n\n`)
 
-        // Todo: Add School Name variable to Team Array
-
-        // Return to Start
+                start();
+            })
     }
 
     function buildTeam() {
-        console.log("Building Team Page...")
-        console.log(TeamArray);
-        // Todo: Take team array and gernerate an HTML page is dist folder using fs
+        // Todo: Take team array and gernerate an HTML page in dist folder using fs
+        // call to page generator using team data
+        generateMainPage(TeamArray);
     }
+
+    console.log("Hello! \nReady to generate your new team? \nPlease respond to the questions below to generate your team page.\n==============\n\n");
 
     start();
 

@@ -1,0 +1,61 @@
+header {
+    background-color: gray;
+    color: magenta;
+    font-weight: bold;
+    font-size: 28px;
+    padding-top: 10px;
+    text-align: center;
+    height: 50px;
+}
+
+main {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: 32px;
+}
+
+.container {
+    width: 80%;
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 32px;
+}
+
+.employee {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+}
+
+.employee .title {
+    text-align: center;
+}
+
+.employee .title span {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.employee .title span span  {
+    font-weight: normal;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.employee .particulars {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
+.employee .particulars .lead {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.employee .particulars .lead span  {
+    font-weight: normal;
+    font-size: 14px;
+    text-align: right;
+}
